@@ -1,0 +1,11 @@
+# Python 暫存檔
+__pycache__/
+*.pyc
+
+# LTspice 模擬產生的檔案
+*.raw
+*.log
+*.net
+
+# 模擬結果資料夾
+simulation_results/
