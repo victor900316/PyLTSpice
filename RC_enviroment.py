@@ -33,7 +33,7 @@ class RC_Env:
         vout_20ms = self.calculate_vout()
         reward = -abs(vout_20ms - self.target_v)
         self.steps += 1
-        terminated = reward <=0.1
+        terminated = reward >= -0.1
         truncated = self.steps >= self.max_steps
         state = self.get_state()
         return state, reward, terminated, truncated
@@ -44,7 +44,7 @@ state = env.reset()
 print("初始State =", state)
 
 #8. 測試一個Action
-actions = [2,1,0]
+actions = [1,1,1,1,1]
 for action in actions:
     state, reward, terminated, truncated = env.step(action)
 
@@ -53,6 +53,9 @@ for action in actions:
     print("State =" ,state)
     print("Reward = ",round(reward, 3))
     print("Terminated = ", terminated)
-    if terminated:
-        print("已達到目標電壓，模擬結束！")
+    if terminated or truncated:
+        print("模擬結束！")
         break
+#--------------------------------------------------------------------------
+#self是指我站存在這環境的數值,假設我在其他環境也有self,
+# 那我在其他環境的self就不會影響到這個環境的self,呼叫時只要更改呼叫的環境名稱就好
