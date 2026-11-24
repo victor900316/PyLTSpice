@@ -93,7 +93,12 @@ class RCLTspiceEnv(gym.Env):
     def reset(self, *, seed=None, options=None):
         super().reset(seed=seed) #Seed 用來讓隨機結果可以實現
 
-        self.resistor = int(
+        if options is not None and "initial_resistor" in options:
+            self.resistor = int(options["initial_resistor"])
+        if not 500 <= self.resistor <= 5000:
+            raise ValueError("初始電阻必須在 500~5000Ω")
+        else:
+            self.resistor = int(
             self.np_random.integers(15, 28) * 100 #隨機產生初始電阻(15~27)*100
         )
         self.steps = 0
